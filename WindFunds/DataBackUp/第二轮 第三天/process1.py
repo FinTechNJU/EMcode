@@ -6,9 +6,7 @@ Created on Tue May 12 21:34:46 2020
 """
 
 '''
-Purpose:
-    处理wind下载下来的数据，得到基金的csv
-    看看有多少个不同的基金经理
+看看有多少个不同的基金经理
 '''
 
 import pandas as pd
@@ -18,6 +16,7 @@ dataRaw = pd.read_excel('WindFunds.xlsx')
 
 class Count:
     name_dict = {}
+    __type__ = type(Count)
     
     def __init__(self, name):
         self.name = name
@@ -34,8 +33,6 @@ class Count:
     def add(self, num):
         self.count += 1
         self.line.append(num)
-
-
         
 def main():        
     fund = dataRaw
@@ -48,6 +45,7 @@ def main():
     #print(len(name_list))
     
     length = fund.shape[0]
+    count_dict = {}
     for i in range(length):
         name = fund.iloc[i,2]
         if name in Count.name_dict.keys():
@@ -57,17 +55,18 @@ def main():
             count = Count(name)
             count.add(i)
             Count.name_dict[name] = count
-    name_df = pd.DataFrame(name_list)
-    name_df.to_csv("managers.csv", mode = 'w+', header = None)
             
     drop_list = []
     for item in Count.name_dict.values():
         if len(item.line) >= 2:
             drop_list.extend(item.line[1:])
             # 出现重复的基金经理，保留第一个，其余的省略
+    
     assert len(drop_list) + len(name_list) == fund.shape[0]
-    funds = fund.drop(drop_list)    
-    funds.to_csv("funds.csv", mode = 'w+')
+    
+    
+    funds = fund.drop(drop_list)
+    funds.to_csv("funds.csv", mode = 'w+',encoding = 'gbk')
 
 if __name__ == "__main__":
     main()
