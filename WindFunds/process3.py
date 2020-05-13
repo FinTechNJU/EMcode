@@ -16,17 +16,17 @@ Returns:
 
 Results:
     K:   31个城市
-    N:   个基金经理
+    N:   259个基金经理
     J_k: 10个权重 
     
 '''
 
 from process2 import show_dfs
 import pandas as pd
-dataRaw1 = pd.read_csv("stocks.csv")
-dataRaw2 = pd.read_csv("funds.csv").drop(["Unnamed: 0"],axis =1)
-dataRaw3 = pd.read_csv('cities.csv').drop(["Unnamed: 0"],axis =1)
-dataRaw4 = pd.read_csv("managers.csv").drop(['0'],axis =1)
+dataRaw1 = pd.read_csv("stocks.csv",encoding = 'gbk')
+dataRaw2 = pd.read_csv("funds.csv",encoding = 'gbk').drop(["Unnamed: 0"],axis =1)
+dataRaw3 = pd.read_csv('cities.csv',encoding = 'gbk').drop(["Unnamed: 0"],axis =1)
+dataRaw4 = pd.read_csv("managers.csv",encoding = 'gbk').drop(['0'],axis =1)
 
 
 if __name__ == "__main__":

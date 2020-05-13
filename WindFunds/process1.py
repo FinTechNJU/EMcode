@@ -58,7 +58,7 @@ def main():
             count.add(i)
             Count.name_dict[name] = count
     name_df = pd.DataFrame(name_list)
-    name_df.to_csv("managers.csv", mode = 'w+', header = None)
+    name_df.to_csv("managers.csv", mode = 'w+',encoding = 'gbk')
             
     drop_list = []
     for item in Count.name_dict.values():
@@ -67,7 +67,8 @@ def main():
             # 出现重复的基金经理，保留第一个，其余的省略
     assert len(drop_list) + len(name_list) == fund.shape[0]
     funds = fund.drop(drop_list)    
-    funds.to_csv("funds.csv", mode = 'w+')
+    funds.to_csv("funds.csv", mode = 'w+',encoding = 'gbk')
+    funds.to_csv("funds_matlab.csv", mode = 'w+',encoding = 'gbk', header= None)
 
 if __name__ == "__main__":
     main()

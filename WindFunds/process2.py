@@ -21,10 +21,11 @@ Attributes:
             注：归属母公司净利润(TTM)为按照正式定期报告数据计算的TTM数据，最新业绩快报参与计算。
 '''
 
+import numpy as np
 import datetime
 from WindPy import w
 import pandas as pd
-dataRaw = pd.read_csv('funds.csv').drop(columns = 'Unnamed: 0')
+dataRaw = pd.read_csv('funds.csv',encoding = 'gbk').drop(columns = 'Unnamed: 0')
 
 
 def count_time(func):
@@ -48,6 +49,18 @@ def stocks_adding(stock_code_list):
 
 @count_time
 def windProcess(stock_code_list):
+    def special_case(stocks):
+        '''600031.sh的值得不到，我们用平均值来代替
+        '''
+        code_list = ["600031.SH", '000425.SZ']
+        for item in code_list:           
+            stocks.loc[item].PB_LYR = stocks.PB_LYR.mean()
+        return stocks
+    def calculate(stocks):
+        '''对市值取log
+        '''
+        stocks.EV3 = np.log(stocks.EV3)
+        return stocks
     #stocks = w.wss(stock_code_list, "province,mkt_cap_CSRC,pb_lyr","unit=1;tradeDate=20200510",usedf=True)[1]
 #    stocks = w.wss(stock_code_list, "ev3,pb_lyr","unit=1; tradeDate=20200510; currencyType=rmb",usedf=True)[1]
 
@@ -56,6 +69,8 @@ def windProcess(stock_code_list):
     # 省份 总市值 账面市值比 
     # 还缺一个变量 过去十二个月的收益 也就是动量
     stocks = w.wss(stock_code_list, "ev3,pb_lyr,eps_ttm","unit=1; tradeDate=20200510; currencyType=rmb",usedf=True)[1]
+    stocks = special_case(stocks)
+    stocks = calculate(stocks)
     return stocks
 
 def show_df(df): 
@@ -85,7 +100,7 @@ def show_dfs(df_list):
 
 @count_time
 def write_file(df,name):
-    df.to_csv(name, mode ='w+') 
+    df.to_csv(name, mode ='w+',encoding = 'gbk') 
 
 def nothing_valueable(citi_df):
     '''海南省只有一家公司
@@ -147,5 +162,5 @@ if __name__ == '__main__':
     citi_list = windCitiCounts(stock_code_list)
     citi_df = pd.DataFrame(citi_list)
     show_df(citi_df)
-    citi_df.to_csv("cities.csv", mode = 'w+')
+    citi_df.to_csv("cities.csv", mode = 'w+',encoding = 'gbk')
 #    w.stop()
