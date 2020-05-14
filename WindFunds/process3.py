@@ -20,13 +20,24 @@ Results:
     J_k: 10个权重 
     
 '''
-
 from process2 import show_dfs
 import pandas as pd
 dataRaw1 = pd.read_csv("stocks.csv",encoding = 'gbk')
 dataRaw2 = pd.read_csv("funds.csv",encoding = 'gbk').drop(["Unnamed: 0"],axis =1)
 dataRaw3 = pd.read_csv('cities.csv',encoding = 'gbk').drop(["Unnamed: 0"],axis =1)
-dataRaw4 = pd.read_csv("managers.csv",encoding = 'gbk').drop(['0'],axis =1)
+dataRaw4 = pd.read_csv("managers.csv", encoding = 'gbk').drop(['0'],axis =1)
+dataRaw5 = pd.read_csv('stock_province.csv', encoding = 'gbk').drop(['EV3', 'PB_LYR', 'EPS_TTM'], axis =1)
+
+def fund2fundCity(fund, stock_province):
+    fundCity = fund
+    for i in range(fund.shape[0]):
+        for j in range(10):
+            code = fundCity.iat[i, 2*j+3]
+            for k in range(stock_province.shape[0]):
+                if stock_province.iat[k, 0] == code:
+                    fundCity.iat[i, 2*j+3] = stock_province.iat[k, 1]
+                    break
+    return fundCity
 
 
 if __name__ == "__main__":
@@ -34,6 +45,7 @@ if __name__ == "__main__":
     stock = dataRaw1
     city = dataRaw3
     manager = dataRaw4
+    stock_province = dataRaw5
     show_dfs([fund, stock, city, manager])
     K = city.shape[0]
     J_k = 10
@@ -43,3 +55,6 @@ if __name__ == "__main__":
     info_dict["N"] = N
     info_dict['J_k'] = J_k
     print(info_dict)
+    
+    fundCity = fund2fundCity(fund, stock_province)
+    fundCity.to_csv('fundCity.csv', mode = 'w+', encoding = 'gbk')

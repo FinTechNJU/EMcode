@@ -129,12 +129,24 @@ def windCitiCounts(stock_code_list, stocks):
         for i in range(len(code_list)):
             df.loc[code_list[i]] = province
         return df
+    def special_case_dataframe(dataframe):
+        '''
+        0005.HK设置总部在"香港特别行政区"
+        1521.HK设置总部在"香港特别行政区"
+        0291.HK设置总部在"香港特别行政区"
+        '''        
+        province = "香港特别行政区"
+        code_list = ['0005.HK', '1521.HK', '0291.HK']
+        for i in range(len(code_list)):
+            dataframe.loc[code_list[i],'PROVINCE'] = province
+        return dataframe
     citi_list = []
     citi_df = w.wss(stock_code_list, "province","unit=1; tradeDate=20200510; currencyType=rmb",usedf=True)[1]
     
 
     global dataframe
     dataframe = citi_df.join(stocks)
+    dataframe = special_case_dataframe(dataframe)
     dataframe.to_csv("stock_province.csv", mode = 'w+', encoding = 'gbk')
     
     citi_df = special_case(citi_df)
@@ -144,6 +156,8 @@ def windCitiCounts(stock_code_list, stocks):
         if item not in citi_list:
             citi_list.append(item)
     return citi_list
+    
+
     
 
 
