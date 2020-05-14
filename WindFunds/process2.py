@@ -116,7 +116,7 @@ def nothing_valueable(citi_df):
     return i, citi_dict
     
 @count_time  
-def windCitiCounts(stock_code_list):
+def windCitiCounts(stock_code_list, stocks):
     def special_case(df):
         '''
         0005.HK设置总部在"香港特别行政区"
@@ -131,7 +131,14 @@ def windCitiCounts(stock_code_list):
         return df
     citi_list = []
     citi_df = w.wss(stock_code_list, "province","unit=1; tradeDate=20200510; currencyType=rmb",usedf=True)[1]
+    
+
+    global dataframe
+    dataframe = citi_df.join(stocks)
+    dataframe.to_csv("stock_province.csv", mode = 'w+', encoding = 'gbk')
+    
     citi_df = special_case(citi_df)
+    
     for i in range(citi_df.shape[0]):
         item = citi_df.iloc[i,0]
         if item not in citi_list:
@@ -159,7 +166,7 @@ if __name__ == '__main__':
     show_df(stocks)      
     write_file(stocks, "stocks.csv")
     
-    citi_list = windCitiCounts(stock_code_list)
+    citi_list = windCitiCounts(stock_code_list, stocks)
     citi_df = pd.DataFrame(citi_list)
     show_df(citi_df)
     citi_df.to_csv("cities.csv", mode = 'w+',encoding = 'gbk')
