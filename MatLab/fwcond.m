@@ -11,6 +11,8 @@ barwjk = b0+b1*chara(:,1)+b2*chara(:,2)+b3*chara(:,3);  % alpha+beta'X
 dijk = (wijk>0)*1;  % indicator for w_{i,j,k}>0
 
 % compute the conditional density f(w_{i,k}|y_{i,k},X_j,theta)
-density = prod( ( ((1/(lam0+lam1*yik))*normpdf((wijk-barwjk)/(lam0+lam1*yik))).^dijk ).*( (normcdf(-barwjk/(lam0+lam1*yik))).^(1-dijk) ) );
+front = ( ((1/(lam0+lam1*yik))*normpdf((wijk-barwjk)/(lam0+lam1*yik))).^dijk );
+backward = ( (normcdf(-barwjk/(lam0+lam1*yik))).^(1-dijk) );
+density = prod( front.* backward);
 
 end

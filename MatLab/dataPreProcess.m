@@ -1,6 +1,6 @@
-N = 259;
-K = 13;
-% name_array = fund(:,3);
+N = 10;
+K = 5;
+
 
 portweight = cell(N,K);
 for i = 1:size(portweight,1)
@@ -17,7 +17,10 @@ end
 % stockchara
 
 length = N+K+K+4+2;
-initialparamval = rand(length,1);
+initialparamval = ones(length,1)/10;
+for i = N+K+1:N+K+K
+    initialparamval(i) = 5;
+end
 
 %initialparamval
 
