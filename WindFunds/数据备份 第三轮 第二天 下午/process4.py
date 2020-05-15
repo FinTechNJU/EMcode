@@ -51,6 +51,9 @@ def delete_few_province(pw):
     delete_list = [1, 8, 11, 12, 14, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31]
     drop_name_list = []
     for i in range(len(delete_list)):
+#        print(i)
+#        if i ==18 :
+#            print(i)
         item = pw.columns[delete_list[i]]
         drop_name_list.append(item)
     result = pw.drop(drop_name_list, axis =1)
@@ -159,10 +162,9 @@ if __name__ == "__main__":
     
     pw = pw.applymap(str)
     
-    pw_few = delete_few_province(pw)
+    pw = delete_few_province(pw)
     pw.to_csv('portweight.csv',mode = 'w+', encoding = 'gbk')
-    pw_few.to_csv('portweight_few.csv',mode = 'w+', encoding = 'gbk')
-
+    
 
 
 

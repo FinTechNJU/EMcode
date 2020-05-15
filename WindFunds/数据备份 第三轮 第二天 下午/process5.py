@@ -13,17 +13,6 @@ dataRaw5 = pd.read_csv('stock_province.csv', encoding = 'gbk').drop(['EV3', 'PB_
 dataRaw7 = pd.read_csv('portweight.csv', encoding = 'gbk').drop(["Unnamed: 0"],axis =1)
 
 
-def get_stockchara_few(stockchara):
-    delete_list = [1, 8, 11, 12, 14, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31]
-    for i in range(len(delete_list)):
-        delete_list[i] -= 1
-    full_list = [ i for i in range(0, 31)]
-    new_set = set(full_list).difference(set(delete_list))
-    new_list = list(new_set)
-    stockchara_few = stockchara.iloc[new_list]
-    return stockchara_few
-
-
 def get_stc_prvc_dict(stock_province):
     stc_prvc_dict = {}
     for i in range(stock_province.shape[0]):
@@ -100,10 +89,6 @@ if __name__ == "__main__":
     stockchara = get_stockchara(stock, stock_province, province)
     check_1(stockchara,portweight)
     stockchara.to_csv('stockchara.csv', mode = 'w+', encoding = 'gbk')
-    
-    stockchara_few = get_stockchara_few(stockchara)
-    stockchara_few.to_csv('stockchara_few.csv', mode = 'w+', encoding = 'gbk')
-    
     
     
     

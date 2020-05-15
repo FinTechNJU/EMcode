@@ -1,8 +1,5 @@
-clc
-clear
-
 N = 259;
-K = 31;
+K = 13;
 % name_array = fund(:,3);
 
 portweight = cell(N,K);
@@ -15,7 +12,7 @@ end
 
 stockchara = cell(K,1);
 for i = 1:size(stockchara,1)
-    stockchara{i,1} = str2num(stockchara(i,1));
+    stockchara{i,1} = str2num(stockcharaRaw(i,1));
 end
 % stockchara
 
