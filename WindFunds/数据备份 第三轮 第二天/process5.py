@@ -10,7 +10,6 @@ import pandas as pd
 dataRaw1 = pd.read_csv("stocks.csv",encoding = 'gbk',index_col=0)
 dataRaw3 = pd.read_csv('cities.csv',encoding = 'gbk').drop(["Unnamed: 0"],axis =1)
 dataRaw5 = pd.read_csv('stock_province.csv', encoding = 'gbk').drop(['EV3', 'PB_LYR', 'EPS_TTM'], axis =1)
-dataRaw7 = pd.read_csv('portweight.csv', encoding = 'gbk').drop(["Unnamed: 0"],axis =1)
 
 
 def get_stc_prvc_dict(stock_province):
@@ -23,15 +22,18 @@ def get_stc_prvc_dict(stock_province):
         stc_prvc_dict[key] = dict_value
     return stc_prvc_dict
 
-def for_testing(): 
+
+def for_testing():
+    
     print('for debug')
+    
+    
+    
+    
+    
     pass
 
-def check_1(stockchara, portweight):
-    for i in range(len(stockchara)):
-        line = stockchara.iloc[i]
-        single_line_split = line.split(';')
-        assert len(single_line_split) == len(portweight.iloc[0,i+1].split(','))
+
 
 def get_matrix(stock_list, stock):
     '''
@@ -83,11 +85,7 @@ if __name__ == "__main__":
     stock = dataRaw1
     province = dataRaw3
     stock_province = dataRaw5
-    portweight = dataRaw7
-    
-    
     stockchara = get_stockchara(stock, stock_province, province)
-    check_1(stockchara,portweight)
     stockchara.to_csv('stockchara.csv', mode = 'w+', encoding = 'gbk')
     
     

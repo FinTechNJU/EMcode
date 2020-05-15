@@ -8,7 +8,7 @@ K = 31;
 portweight = cell(N,K);
 for i = 1:size(portweight,1)
     for j = 1:size(portweight,2)
-        portweight{i,j} = str2num(portweightRaw(i,j))';
+        portweight{i,j} = str2num(portweight(i,j))';
     end
 end
 % portweight
