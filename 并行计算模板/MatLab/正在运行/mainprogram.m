@@ -48,8 +48,12 @@ Ds = abs(Qfun(param_est,portweight,stockchara,N,K,param_est,Ybar) - Qfun(parampr
 
 % Checking for convergence of the EM algorithm, 
 % if Ds<=convergcrit, concludes the iterative process, otherwise continue to the next iteration
-
+count = 0;
 while Ds>convergcrit
+	count = count + 1;
+	if count == 3
+		break;
+	end
     % % Iteration s, s>=2
     % let theta' = hat{theta}_{s-1}
     paramprime = param_est;
