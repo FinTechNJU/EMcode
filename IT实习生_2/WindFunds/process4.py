@@ -47,8 +47,8 @@ def check_2(pw, province_stockList_dict):
         assert len(value) == len(test_cell)
         i +=1 # 用于记录循环的次数 
      
-def delete_few_province(pw):
-    delete_list = [1, 8, 11, 12, 14, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31]
+def delete_few_province(pw, delete_list):
+    
     drop_name_list = []
     for i in range(len(delete_list)):
         item = pw.columns[delete_list[i]]
@@ -136,6 +136,9 @@ def get_null_portweight(fundCity, city):
     # 检查空dataframe是否生成正确
     return pw
 
+def few_manager(manager):
+    return manager
+
 
 
 if __name__ == "__main__":
@@ -145,6 +148,8 @@ if __name__ == "__main__":
     stock = dataRaw_list[1]
     city = dataRaw_list[3]
     manager = dataRaw_list[4]
+    manager = few_manager(manager)
+    # TODO 减少基金经理的数量
     stock_province = dataRaw_list[5]
     fundCity = dataRaw_list[6]
     
@@ -159,9 +164,10 @@ if __name__ == "__main__":
     
     pw = pw.applymap(str)
     
-    pw_few = delete_few_province(pw)
-    pw.to_csv('portweight.csv',mode = 'w+', encoding = 'gbk')
-    pw_few.to_csv('portweight_few.csv',mode = 'w+', encoding = 'gbk')
+#    delete_list = [1, 8, 11, 12, 14, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31]
+#    pw_few = delete_few_province(pw,delete_list)
+#    pw.to_csv('portweight.csv',mode = 'w+', encoding = 'gbk')
+#    pw_few.to_csv('portweight_few.csv',mode = 'w+', encoding = 'gbk')
 
 
 
