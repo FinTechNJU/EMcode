@@ -28,7 +28,7 @@ Aeq = [zeros(1,N),ones(1,K),zeros(1,K+4+2)];  beq = 1;
 Ybar = 50;
 
 % set up convergence criterion for the EM algorithm
-convergcrit = 5;
+convergcrit = 1;
 
 
 %% Part 2: execution of the main EM algorithm
