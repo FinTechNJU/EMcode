@@ -24,20 +24,20 @@ result['x1']=temp_result.iloc[:,-1]
 # =========================================================== #
 x2=pd.DataFrame(df1.iloc[:,3])
 temp_result=result
-temp_result=temp_result.join(x1,how='inner')
+temp_result=temp_result.join(x2,how='inner')
 result['x2']=temp_result.iloc[:,-1]
 # =========================================================== #
 
 # =========================================================== #
 x3=pd.DataFrame(df1.iloc[:,5])
 temp_result=result
-temp_result=temp_result.join(x1,how='inner')
+temp_result=temp_result.join(x3,how='inner')
 result['x3']=temp_result.iloc[:,-1]
 
 # =========================================================== #
 x4=pd.DataFrame(df1.iloc[:,6])
 temp_result=result
-temp_result=temp_result.join(x1,how='inner')
+temp_result=temp_result.join(x4,how='inner')
 result['x4']=temp_result.iloc[:,-1]
 # =========================================================== #
 
