@@ -3,7 +3,7 @@ from sklearn import svm,datasets
 from sklearn.metrics import classification_report
 
 clf = svm.SVC(kernel='linear')
-#杞藉叆楦㈠熬鑺辨暟鎹泦
+#载入鸢尾花数据集
 iris = datasets.load_iris()
 X = iris.data
 y = iris.target
@@ -54,3 +54,4 @@ clf = RandomForestClassifier(n_estimators=20)
 clf.fit(X_train,y_train)
 testlabel=clf.predict(X_test)
 print(classification_report(y_test,testlabel))
+

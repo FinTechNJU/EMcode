@@ -15,7 +15,7 @@ import pandas as pd
 (5)最后得到一个[不同人 x 不同城市]的矩阵
 '''
 
-connectionCopy = pd.read_csv('./output/connection.csv',encoding='gbk')
+#connectionCopy = pd.read_csv('./output/connection.csv',encoding='gbk')
 
 pw = pd.read_csv('./Full_Data_output/portweightRaw.csv',encoding='gbk')
 pw=pw.set_index('manager')
@@ -39,7 +39,7 @@ def demand_1(other, main):
     result = []
     for l in range(length):
         if other[l]>0 and main[l]>0:
-            temp = min(other[l], main[l])
+            temp = min(other[l] , main[l])
             result.append(temp)
     result_sum = sum(result)
     result_return = result_sum/length 
@@ -78,8 +78,10 @@ for i in range(pw.shape[0]):
             demand_2 += demand_1_num
         #(2)计算一个人在某个城市的所有人的关系数字
         connection.iat[i,j] = demand_2
-        
-#connection.to_csv('./output/connection.csv',mode='w+',encoding='gbk')
+
+
+
+connection.to_csv('./output/connection.csv',mode='w+',encoding='gbk')
 
 
 

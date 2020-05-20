@@ -75,7 +75,9 @@ for i in range(len(stock_code_list)):
     key = stockcity.loc[stock].values.tolist()[0]
     province_stock_dict[key].append(stock)
 # 获得实验要用到的省份股票字典
-
+    
+# ================================================= #
+    
 delete_stock_code =[]
 for value in province_stock_dict.values():
     if len(value) == 1:
