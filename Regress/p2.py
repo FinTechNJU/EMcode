@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Wed May 20 23:51:29 2020
+
+@author: hs101
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Sun May 17 20:01:47 2020
 
 @author: hs101
@@ -8,7 +15,6 @@ Created on Sun May 17 20:01:47 2020
 寻找相关变量
 '''
 
-import statsmodels.formula.api as sm
 import pandas as pd
 
 duRaw = pd.read_csv('./shocks/shocks.csv', encoding = 'gbk',header = None)
@@ -38,7 +44,10 @@ stock_attribute_df = pd.DataFrame()
 for i in range(attribute_length):
     stock_attribute_df[attribute_name[i][:3]] = [0.00 for i in range(du.shape[0])]
 stock_attribute_df["duvol"] = du.iloc[:,1]
+stock_attribute_df['index'] = du.iloc[:,0]
+stock_attribute_df=stock_attribute_df.set_index('index')
 
+# ============================================================================== #
 for i in range(du.shape[0]):
 #    print(i)
     code = du.iloc[i,0]  
@@ -53,65 +62,45 @@ for i in range(du.shape[0]):
                 stock_attribute_df.iat[i,k] = exchg.iat[j,k+2]
 
 stock_attribute_df = stock_attribute_df.fillna(0)
-
+stock_attribute_df.to_csv('./output/股价控制变量.csv',encoding='gbk',mode='w+')
 # ============================================================================== #
 
 
-result_dict = {}
-def show(i):
-    forcast = pd.DataFrame()
-    forcast['x'] = stock_attribute_df.iloc[:,i]
-    forcast['duvol'] = stock_attribute_df.iloc[:,-1]
-    simple = sm.ols(formula = 'duvol ~ x', data = forcast).fit()
-    print(simple.summary())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ============================================================================== #
-i = 0
-show(i)
-# ============================================================================== #
-stock_attribute_df['index'] = du.iloc[:,0]
-stock_attribute_df=stock_attribute_df.set_index('index')
-
-list_index = [0,3,5,6]
-list_index.append(-1)
-new_result = stock_attribute_df.iloc[:,list_index]
-new_result.to_csv('./output/new_result.csv',encoding='gbk',mode='w+')
-
-
-
-
-
-# ============================================================================== #
-number_list= [0.024, 0.554, 0.096, 0.022, 0.149, 0.005,0.002,0.492,0.836]
-result_dict[i] = number_list[-1]
-result = pd.Series(index = list(ag.columns[2:]), data = number_list )
-result = pd.DataFrame(result)
-result.columns = ['P>|t|']
-result.to_csv('P_value_of_attributes.csv', encoding = 'gbk', mode = 'w+')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
