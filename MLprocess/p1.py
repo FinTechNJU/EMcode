@@ -24,7 +24,8 @@ input1=pd.read_csv('./ML_output/input1.csv',encoding='gbk').set_index('index')
 errdf=pd.DataFrame
 # ======================================================================== #
 
-kf = KFold(n_splits=5,shuffle=False)
+kf = KFold(n_splits=10,shuffle=False)
+counting=0
 for train_index, test_index in kf.split(input0):
 # ======================================================================== #    
     X_train=input0.iloc[train_index,0:4]
@@ -32,7 +33,7 @@ for train_index, test_index in kf.split(input0):
     y_train=input0.iloc[train_index,4]
     y_test=input0.iloc[test_index,4]
 
-    svr = SVR(kernel='rbf',C=0.01)
+    svr = SVR(kernel='rbf',C=0.02)
     svr_y_pred = svr.fit(X_train,y_train).predict(X_test)
     y_predict = svr_y_pred
     svr_mae = mean_absolute_error(y_test,y_predict)
@@ -75,6 +76,9 @@ for train_index, test_index in kf.split(input0):
     err0_dict['bp_mae']=bp_mae
     err0_dict['bp_mse']=bp_mse
     err0_dict['bp_rmse']=bp_rmse
+    err0_dict['rf_mae']=rf_mae
+    err0_dict['rf_mse']=rf_mse
+    err0_dict['rf_rmse']=rf_rmse
     
 # --------------------------------------------------------------------------- #    
     
@@ -83,7 +87,7 @@ for train_index, test_index in kf.split(input0):
     y_train=input1.iloc[train_index,5]
     y_test=input1.iloc[test_index,5]
 
-    svr = SVR(kernel='rbf',C=0.01)
+    svr = SVR(kernel='rbf',C=0.02)
     svr_y_pred = svr.fit(X_train,y_train).predict(X_test)
     y_predict = svr_y_pred
     svr_mae = mean_absolute_error(y_test,y_predict)
@@ -125,9 +129,18 @@ for train_index, test_index in kf.split(input0):
     err1_dict['cart_rmse']=cart_rmse
     err1_dict['bp_mae']=bp_mae
     err1_dict['bp_mse']=bp_mse
-    err1_dict['bp_rmse']=bp_rmse
+    err1_dict['bp_rmse']=bp_rmse    
+    err1_dict['rf_mae']=rf_mae
+    err1_dict['rf_mse']=rf_mse
+    err1_dict['rf_rmse']=rf_rmse
+    
+    count=0
+    
 # ======================================================================== #
-    print()
+    if counting ==8:
+        print() 
+    counting+=1
+
     
 
 

@@ -68,10 +68,13 @@ def show(i):
 i = 0
 show(i)
 # ============================================================================== #
+stock_attribute_df['index'] = du.iloc[:,0]
+stock_attribute_df=stock_attribute_df.set_index('index')
 
-
-
-
+list_index = [0,3,5,6]
+list_index.append(-1)
+new_result = stock_attribute_df.iloc[:,list_index]
+new_result.to_csv('./output/new_result.csv',encoding='gbk',mode='w+')
 
 
 
