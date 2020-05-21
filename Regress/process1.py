@@ -64,9 +64,20 @@ def show(i):
     forcast['duvol'] = stock_attribute_df.iloc[:,-1]
     simple = sm.ols(formula = 'duvol ~ x', data = forcast).fit()
     print(simple.summary())
-
-i = 8
+# ============================================================================== #
+i = 0
 show(i)
+# ============================================================================== #
+
+
+
+
+
+
+
+
+
+# ============================================================================== #
 number_list= [0.024, 0.554, 0.096, 0.022, 0.149, 0.005,0.002,0.492,0.836]
 result_dict[i] = number_list[-1]
 result = pd.Series(index = list(ag.columns[2:]), data = number_list )
