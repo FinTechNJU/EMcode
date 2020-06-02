@@ -27,7 +27,7 @@ errdf=pd.DataFrame
 kf = KFold(n_splits=10,shuffle=False)
 counting=0
 for train_index, test_index in kf.split(input0):
-# ======================================================================== #    
+# ======================================================================== #
     X_train=input0.iloc[train_index,0:4]
     X_test=input0.iloc[test_index,0:4]
     y_train=input0.iloc[train_index,4]
@@ -40,7 +40,7 @@ for train_index, test_index in kf.split(input0):
     svr_mse = mean_squared_error(y_test,y_predict)
     svr_rmse = np.sqrt(mean_squared_error(y_test,y_predict))
 
-    
+
     rf = RandomForestRegressor()
     rf_y_pred = rf.fit(X_train, y_train).predict(X_test)
     y_predict = rf_y_pred
@@ -48,7 +48,7 @@ for train_index, test_index in kf.split(input0):
     rf_mse = mean_squared_error(y_test,y_predict)
     rf_rmse = np.sqrt(mean_squared_error(y_test,y_predict))
 
-    
+
     cart = DecisionTreeRegressor()
     cart_y_pred = cart.fit(X_train, y_train).predict(X_test)
     y_predict = cart_y_pred
@@ -56,7 +56,7 @@ for train_index, test_index in kf.split(input0):
     cart_mse = mean_squared_error(y_test,y_predict)
     cart_rmse = np.sqrt(mean_squared_error(y_test,y_predict))
 
-    
+
     bp = MLPRegressor()
     bp_y_pred = bp.fit(X_train, y_train).predict(X_test)
     y_predict = bp_y_pred
@@ -79,9 +79,9 @@ for train_index, test_index in kf.split(input0):
     err0_dict['rf_mae']=rf_mae
     err0_dict['rf_mse']=rf_mse
     err0_dict['rf_rmse']=rf_rmse
-    
-# --------------------------------------------------------------------------- #    
-    
+
+# --------------------------------------------------------------------------- #
+
     X_train=input1.iloc[train_index,0:5]
     X_test=input1.iloc[test_index,0:5]
     y_train=input1.iloc[train_index,5]
@@ -94,7 +94,7 @@ for train_index, test_index in kf.split(input0):
     svr_mse = mean_squared_error(y_test,y_predict)
     svr_rmse = np.sqrt(mean_squared_error(y_test,y_predict))
 
-    
+
     rf = RandomForestRegressor()
     rf_y_pred = rf.fit(X_train, y_train).predict(X_test)
     y_predict = rf_y_pred
@@ -102,7 +102,7 @@ for train_index, test_index in kf.split(input0):
     rf_mse = mean_squared_error(y_test,y_predict)
     rf_rmse = np.sqrt(mean_squared_error(y_test,y_predict))
 
-    
+
     cart = DecisionTreeRegressor()
     cart_y_pred = cart.fit(X_train, y_train).predict(X_test)
     y_predict = cart_y_pred
@@ -110,7 +110,7 @@ for train_index, test_index in kf.split(input0):
     cart_mse = mean_squared_error(y_test,y_predict)
     cart_rmse = np.sqrt(mean_squared_error(y_test,y_predict))
 
-    
+
     bp = MLPRegressor()
     bp_y_pred = bp.fit(X_train, y_train).predict(X_test)
     y_predict = bp_y_pred
@@ -129,19 +129,19 @@ for train_index, test_index in kf.split(input0):
     err1_dict['cart_rmse']=cart_rmse
     err1_dict['bp_mae']=bp_mae
     err1_dict['bp_mse']=bp_mse
-    err1_dict['bp_rmse']=bp_rmse    
+    err1_dict['bp_rmse']=bp_rmse
     err1_dict['rf_mae']=rf_mae
     err1_dict['rf_mse']=rf_mse
     err1_dict['rf_rmse']=rf_rmse
-    
+
     count=0
-    
+
 # ======================================================================== #
-    if counting ==8:
-        print() 
+    if counting ==1:
+        print()
     counting+=1
 
-    
+
 
 
 
