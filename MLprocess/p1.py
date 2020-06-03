@@ -138,7 +138,8 @@ for train_index, test_index in kf.split(input0):
 
 # ======================================================================== #
     if counting ==1:
-        print()
+        print("在此处设置断点")
+        break
     counting+=1
 
 
